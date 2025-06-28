@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+         
+        <div class="heading">Super Clicker</div>
+        <div id="controls">
+            <button id="startBtn">Start</button>
+            <button id="pauseBtn" disabled>Pause</button>
+            <button id="resumeBtn" disabled>Resume</button>
+        </div>
+        <div id="gameArea">
+            <div id="scoreBoard">Score: 0 | Lives: 3 | Combo: 1x</div>
+        </div>
+        <div id="gameOver">
+            <div>
+                Game Over<br>
+                <button onclick="location.reload()">Restart</button>
+                <div id="leaderboard"></div>
+            </div>
+        </div>
+        <audio id="clickSound" src="click.mp3"></audio>
+        <audio id="missSound" src="miss.mp3"></audio>
+        <audio id="powerupSound" src="powerup.mp3"></audio>
+         <!-- Background pixel music -->
+        <audio id="bgMusic" src="pixel_bg.mp3" loop autoplay muted></audio>
+        <!-- Effect music -->
+        <audio id="effectMusic" src="effect.mp3"></audio>
+        
+    
+    <script src="game.js"></script>
+        <script>
+        // Unmute and play background music on first user interaction (for autoplay policy)
+        function playBGMusic() {
+            const bgMusic = document.getElementById('bgMusic');
+            if (bgMusic.muted) {
+                bgMusic.muted = false;
+                bgMusic.play().catch(() => {}); // Prevent error if play is interrupted
+            }
+            document.body.removeEventListener('click', playBGMusic);
+            document.body.removeEventListener('keydown', playBGMusic);
+        }
+        document.body.addEventListener('click', playBGMusic);
+        document.body.addEventListener('keydown', playBGMusic);
+    </script>
